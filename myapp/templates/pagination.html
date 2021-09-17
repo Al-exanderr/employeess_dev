@@ -1,0 +1,35 @@
+<div class="pagination" align="center">  
+ <span class="step-links">
+  <small>  
+
+    {% if Info.has_previous %} 
+      {% if 'departments' in request.get_full_path %} <!-- если в прошлом запросе была фильтрация, присоединяю её к запросу -->
+      <a href="{{ request.get_full_path }}&page={{ Info.previous_page_number }}">Предыдущая</a>   
+      {% else %}      
+      <a href="?page={{ Info.previous_page_number }}">Предыдущая</a>   
+      {% endif %}
+    {% endif %}
+
+    <span class="current">  
+      Страница {{ Info.number }} из {{ Info.paginator.num_pages }}.  
+    </span>  
+  
+    {% if Info.has_next %}  
+      {% if 'departments' in request.get_full_path %}
+      <a href="{{ request.get_full_path }}&page={{ Info.next_page_number }}"> Следующая</a> 
+      {% else %} 
+      <a href="?page={{ Info.next_page_number }}"> Следующая</a> 
+      {% endif %}
+    {% endif %}
+
+    {% if Info.has_next %}  
+      {% if 'departments' in request.get_full_path %}
+      <a href="{{ request.get_full_path }}&page={{ Info.paginator.num_pages }}"> Последняя</a>  
+      {% else %}
+      <a href="?page={{ Info.paginator.num_pages }}"> Последняя</a>  
+      {% endif %}  
+    {% endif %}
+
+  </small>
+  </span>  
+</div>

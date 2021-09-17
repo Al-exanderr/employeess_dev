@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+{% if info %}
+<h1>Данные о сотруднике</h1>
+<div align="center">
+    <br>
+    <p>Фамилия: {{ info.surname }}</p>    
+    <p>Имя: {{ info.name }}</p>
+    <p>Отчество: {{ info.patronymic }}</p>                      
+    <p>Дата рождения: {{ info.birth_date }}</p> 
+    <p>Эл. почта: {{ info.email }}</p> 
+    <p>Телефон: {{ info.phone_number }}</p> 
+    <p>Дата трудоустройства: {{ info.start_date }}</p> 
+    {% if info.end_date %}
+      <p>Дата увольнения: {{ info.end_date }}</p> 
+    {% endif %}
+    <p>Должность: {{ info.position }}</p> 
+    <p>Отдел: {{ info.department }}</p>                 
+    <p></p>
+    {% else %}
+        <p>Данные о сотруднике отсутствуют.</p>
+    {% endif %}
+    <p><a href="/myapp/people_list">к списку сотрудников</a></p>
+</div>
+{% endblock %}

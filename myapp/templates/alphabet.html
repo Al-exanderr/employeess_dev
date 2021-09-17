@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+{% if Letters %}
+<h1>Алфавитный указатель для фамилий сотрудников</h1>
+<div align="center">
+
+    <div class="navbar">
+    {% for q in Letters %}    
+        <a class="nav-link" href="/myapp/alphabet/?range={{forloop.counter}}">{{q.0}} - {{q.1}}</a>
+    {% endfor %}                                    <!-- передаю номер группы -->
+    </div>
+    <p> </p>
+
+    <div class="container">
+        <div class="row row-cols-auto">
+        {% for q in PeopleInfo %}    
+        <a class="nav-link" href="/myapp/man/{{ q.id }}">{{q.surname}}</a>
+        {% endfor %}                     
+        </div>    
+    </div>
+
+    <p></p>
+    {% else %}
+        <p>Данные отсутствуют.</p>
+    {% endif %}
+</div>
+{% endblock %}

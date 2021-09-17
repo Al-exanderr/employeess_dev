@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru-ru">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Тестовое задание</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+</head>
+
+
+
+{% block main %}
+<p></p>
+<p></p>
+<h1 align="center">Авторизация пользователя</h1>
+<div align="center">
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}  <!-- отображаю форму, оборачиваю элементы формы в тег <p>  Вывести их в таблице, в ячейках тега <tr>-->
+        <button type="submit" class="save btn btn-default">Готово</button>
+    </form>
+</div>
+{% endblock %}
+
+
+
+
+
