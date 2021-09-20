@@ -1,0 +1,58 @@
+# pull official base image
+FROM python:3.6.9-alpine
+
+# set work directory into container
+WORKDIR /usr/src/app
+
+# создаем директорию для пользователя
+RUN mkdir -p /home/app
+
+# создаем отдельного пользователя
+RUN addgroup -S app && adduser -S app -G app
+
+# создание каталога для приложения
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/static
+RUN mkdir $APP_HOME/media
+WORKDIR $APP_HOME
+
+# set environment variables for python
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# install dependencies for Postgre
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev
+
+# install dependencies
+RUN pip install --upgrade pip
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+
+# установка зависимостей и
+RUN apk update && apk add libpq
+
+# копирование из builder
+#COPY --from=builder /usr/src/app/wheels /wheels
+#COPY --from=builder /usr/src/app/requirements.txt .
+#RUN pip install --no-cache /wheels/*
+
+# копирование entrypoint-prod.sh
+COPY ./entrypoint.prod.sh $APP_HOME
+
+# copy current folder content (project) to container
+#COPY . .
+COPY . $APP_HOME
+
+# изменение прав для пользователя app
+RUN chown -R app:app $APP_HOME
+
+
+# изменение рабочего пользователя
+USER app
+
+
+ENTRYPOINT ["/home/app/web/entrypoint.prod.sh"]
+

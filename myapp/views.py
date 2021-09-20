@@ -67,7 +67,8 @@ def people_list(request):
         department  = request.GET.get('departments')
         check       = request.GET.get('check')
         page        = request.GET.get('page',1)   # number of page, 1 - start value
-        form = ViewPeopleForm()                    
+        queryset = Departments.objects.values_list("Department_name", flat=True) 
+        form = ViewPeopleForm(queryset)                    
         PeopleFieldsList = People._meta.get_fields()[1:10]  #список полей модели для шапки таблицы, исключая 'id' и 'department'
         Objects = People.objects.all()   
         # фильтрация    

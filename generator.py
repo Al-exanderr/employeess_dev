@@ -1,7 +1,5 @@
 #from genericpath import exists
-import pandas as pd
-import numpy as np
-from django.utils import timezone
+#from django.utils import timezone
 from myapp.models import *
 import random
 from faker import Faker # Использую Facker для начального заполнения БД

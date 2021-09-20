@@ -1,0 +1,6 @@
+pip3 install django-phonenumber-field[phonenumbers]
+# https://github.com/stefanfoulis/django-phonenumber-field#readme
+#pip3 install django-bootstrap4
+pip3 install faker
+
+python3 manage.py createsuperuser

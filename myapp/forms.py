@@ -17,6 +17,7 @@ class LoginForm(forms.Form):
 
 
 class ViewPeopleForm(forms.Form):
-    queryset = Departments.objects.values_list("Department_name", flat=True) 
-    departments = forms.ChoiceField(choices=[(x,x) for x in queryset], label='Отдел:') # initial='Все'
-    #check = forms.BooleanField(required=False, label='Только работающие')
+    def __init__(self, queryset, *args,**kwargs): # переопределяю __init__ c аргументом queryset, в котором набор всех отделов
+        super(ViewPeopleForm,self).__init__(*args,**kwargs) # ниже добавляю поле ChoiceField c отделами
+        self.fields['departments']= forms.ChoiceField(choices=tuple([(name, name) for name in queryset]), label='Отдел:')
+

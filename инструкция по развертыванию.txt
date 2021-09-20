@@ -1,0 +1,45 @@
+# Установить докер
+sudo apt install docker-ce
+# Установить docker-compose
+sudo pip3 install docker-compose
+# Запустить демон Docker и активировать его автозапуск:
+sudo systemctl start docker
+sudo systemctl enable docker
+
+
+docker-compose build
+docker-compose up -d
+docker-compose down -v
+docker-compose logs -f
+
+
+
+
+#запустить
+sudo docker run --rm --name pgdocker -e POSTGRES_PASSWORD=test -e POSTGRES_USER=test -e POSTGRES_DB=test -d -p 5432:5432 -v $HOME/user/django/docker/postgres:/var/lib/postgresql/data postgres
+
+# если bind: address already in use:
+# смотрим какой процесс использует порт:
+sudo ss -lptn 'sport = :5432'
+# убиваем процесс:
+sudo kill 2592
+
+
+# установка на локальной машине клиентской утилиты psql:
+sudo apt install postgresql-client
+# подключаемся к контейнеру и выполняем тестовый запрос:
+psql -h 127.0.0.1 -U test -d test
+# -U — ключ указывает на имя пользователя, которое будет использоваться для подключения к базе данных.
+
+# можно подключиться непосредственно к контейнеру, не устанавливая клиентское ПО:
+sudo docker exec -it pgdocker psql -U test
+
+# остановить запущенный контейнер. Если при запуске использовался ключ -rm, все изменения будут отброшены.
+sudo docker stop pgdocker
+
+#запустить ранее созданный контейнер
+sudo docker start pgdocker
+
+#запустить командную строку контейнера
+sudo docker exec -it pgdocker bash
+
