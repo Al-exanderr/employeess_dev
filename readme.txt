@@ -37,6 +37,7 @@ cd employeess_prod
 # добавить ip сервера в .env.dev/allowed_hosts
 # запустить docker-compose
 sudo docker-compose -f docker-compose.yml up -d --build
+#Если с первого раза не заработал, перезапустить.
 
 
 
